@@ -1,0 +1,14 @@
+@option javaVersion=1.8
+@option discardLogicWhitespace=true
+@import de.drippinger.User
+
+@args (String title, User user)
+
+<html>
+<head>
+    <title>@title</title>
+</head>
+<body>
+    @views.index.template(user)
+</body>
+</html>
