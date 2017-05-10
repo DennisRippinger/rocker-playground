@@ -28,19 +28,19 @@ pipeline {
 
         stage('tests') {
             steps {
-                try {
-                    sh "mvn test"
-                } catch(err) {
-                    throw err
-                } finally {
-                    junit '**/target/surefire-reports/TEST-*.xml'
+                    sh "mvn test -Dmaven.test.failure.ignore=true"
+                }
+                post {
+                    success{
+                        junit '**/target/surefire-reports/TEST-*.xml'
+                    }
                 }
             }
         }
 
         stage('packaging') {
             steps {
-                sh "./mvnw package -DskipTests"
+                sh "mvn package -DskipTests"
                 archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
             }
         }
