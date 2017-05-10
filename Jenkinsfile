@@ -8,12 +8,6 @@ pipeline {
 
     stages {
 
-        stage('checkout') {
-            steps {
-                checkout scm
-                }
-        }
-
         stage('check java') {
             steps {
                 sh "java -version"
@@ -41,7 +35,7 @@ pipeline {
         stage('packaging') {
             steps {
                 sh "mvn package -DskipTests"
-                archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             }
         }
     }
