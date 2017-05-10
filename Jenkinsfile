@@ -36,7 +36,7 @@ pipeline {
                     }
                 }
             }
-        }
+
 
         stage('packaging') {
             steps {
@@ -44,6 +44,5 @@ pipeline {
                 archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
             }
         }
-
     }
 }
