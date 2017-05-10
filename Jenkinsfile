@@ -1,6 +1,11 @@
 #!/usr/bin/env groovy
 
 node {
+
+    tools {
+        maven 'Maven 3.5.0'
+    }
+
     stage('checkout') {
         checkout scm
     }
