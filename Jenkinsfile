@@ -9,30 +9,40 @@ pipeline {
     stages {
 
         stage('checkout') {
-            checkout scm
+            steps {
+                checkout scm
+                }
         }
 
         stage('check java') {
-            sh "java -version"
+            steps {
+                sh "java -version"
+                }
         }
 
         stage('clean') {
-            sh "mvn clean"
+            steps {
+                sh "mvn clean"
+                }
         }
 
         stage('tests') {
-            try {
-                sh "mvn test"
-            } catch(err) {
-                throw err
-            } finally {
-                junit '**/target/surefire-reports/TEST-*.xml'
+            steps {
+                try {
+                    sh "mvn test"
+                } catch(err) {
+                    throw err
+                } finally {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                }
             }
         }
 
         stage('packaging') {
-            sh "./mvnw package -DskipTests"
-            archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+            steps {
+                sh "./mvnw package -DskipTests"
+                archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+            }
         }
 
     }
